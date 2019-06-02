@@ -12,7 +12,7 @@ export class RedditRequestConfig {
     public redditSubmittedUrl(username: string) {
         return this.redditBaseApiUrl + '/user/' + username + '/submitted';
     }
-    public builddefaultQueryParams(before?: string): {} {
+    public buildDefaultQueryParams(before?: string): {} {
         const queryParams = {
             limit: this.limit,
             show: this.show,

@@ -16,6 +16,6 @@ export class RedditDataService {
   }
   getRedditUserSubmitted(redditUserName: string): Observable<any> {
     return from(get(this.redditRequestConfig.redditSubmittedUrl(redditUserName))
-      .query(this.redditRequestConfig.builddefaultQueryParams));
+      .query(this.redditRequestConfig.buildDefaultQueryParams()));
   }
 }

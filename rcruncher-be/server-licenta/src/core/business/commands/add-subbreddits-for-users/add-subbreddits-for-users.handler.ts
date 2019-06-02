@@ -10,10 +10,16 @@ export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSub
 
     async execute(command: AddSubredditsForRedditUserCommand) {
         const { redditUser } = command;
-        const redditPostOwner = await RedditUserEntity.findOne({ where: { name: redditUser.name } });
+        const redditPostOwner = await RedditUserEntity.
+            findOne(
+                {
+                    where: { name: redditUser.name },
+                    relations: ['createdSubreddits']
+                },
+            );
         this.redditDataService.getRedditUserSubmitted(redditPostOwner.name).subscribe(async (data) => {
-            const subredditData = JSON.parse(data.data);
-            for (const subreddit of subredditData) {
+            const subredditData = data.body;
+            for (const subreddit of subredditData.data.children) {
                 const subredditEntity = await UserSubredditEntity.findOne({ where: { origin: subreddit.data.subreddit, owner: redditPostOwner } });
                 if (subredditEntity !== undefined) {
                     subredditEntity.numberOfAppearances++;
@@ -25,7 +31,7 @@ export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSub
                     newSubreddit.origin = subreddit.data.subreddit;
                     newSubreddit.owner = redditPostOwner;
                     await newSubreddit.save();
-                    redditPostOwner.creadetSubreddits.push(newSubreddit);
+                    redditPostOwner.createdSubreddits.push(newSubreddit);
                 }
             }
             redditPostOwner.save();

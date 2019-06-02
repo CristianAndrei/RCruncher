@@ -1,10 +1,11 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import {
     NewRedditUserCommand, AddCommentsForFirstTimeRedditUserCommand, RenderTopicsForRedditUserCommand, AddSubredditsForRedditUserCommand,
 } from 'src/core/business/commands/command.exporter';
 import { RedditUserModel } from 'src/core/business/models/reddit-user.model';
 import { CommandBus } from '@nestjs/cqrs';
 import { from } from 'rxjs';
+import { KohonenNetwork } from 'src/core/services/machine-learning-services/kohonen-network';
 
 @Controller('reddit-users')
 export class RedditUsersController {
@@ -40,5 +41,10 @@ export class RedditUsersController {
         from(this.commandBus.execute(
             new AddSubredditsForRedditUserCommand(redditUserModel))
             ).subscribe( () => {console.log("okay")});
+    }
+    @Get('network')
+    async kNetwoerk() {
+        const network = new KohonenNetwork();
+        network.buildFullTrainingSet();
     }
 }

@@ -37,5 +37,5 @@ export class RedditUserEntity extends BaseEntity {
     relatedTopics: RedditTopicEntity[];
 
     @OneToMany(type => UserSubredditEntity, userSubreddit => userSubreddit.owner)
-    creadetSubreddits: UserSubredditEntity[];
+    createdSubreddits: UserSubredditEntity[];
 }

@@ -13,6 +13,7 @@ export class NewRedditUserHandler implements ICommandHandler<NewRedditUserComman
     newRedditUser.redditId = redditUser.redditId;
     newRedditUser.comments = [];
     newRedditUser.relatedTopics = [];
+    newRedditUser.createdSubreddits = [];
     await newRedditUser.save();
   }
 }

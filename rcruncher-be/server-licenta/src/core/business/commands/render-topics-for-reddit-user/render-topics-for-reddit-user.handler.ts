@@ -10,12 +10,14 @@ export class RenderTopicsForRedditUserHandler implements ICommandHandler<RenderT
 
     async execute(command: RenderTopicsForRedditUserCommand) {
         const { redditUser } = command;
-        const redditCommentOwner = await RedditUserEntity.findOne({ where: { name: redditUser.name } });
-        const notRenderedComments = await RedditCommentEntity.find({ where: {procesed: false, owner: redditCommentOwner}});
+        const redditCommentOwner = await RedditUserEntity.findOne(
+            {
+                where: { name: redditUser.name },
+                relations : ['comments'], 
+            });
+        const notRenderedComments = await RedditCommentEntity.find({ where: { procesed: false, owner: redditCommentOwner } });
 
-        if(redditCommentOwner.relatedTopics === undefined) {
-            redditCommentOwner.relatedTopics = [];
-        }
+        // NEEDS FURTHER ATTENTION
 
         for (const comment of notRenderedComments) {
             const commentTopics: any = await this.textEnchancerService.extractKeyWords(comment.body);

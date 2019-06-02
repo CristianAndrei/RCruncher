@@ -14,7 +14,13 @@ export class AddCommentsForFirstTimeRedditUserHandler implements ICommandHandler
     async execute(command: AddCommentsForFirstTimeRedditUserCommand) {
         const { redditUser } = command;
 
-        const redditCommentOwner = await RedditUserEntity.findOne({ where: { name: redditUser.name } });
+        const redditCommentOwner = await RedditUserEntity.findOne(
+            {
+                where: { name: redditUser.name },
+                relations: ['comments']
+            }
+
+        );
 
         const boundaryDate = new Date();
         boundaryDate.setMonth(boundaryDate.getMonth() - this.numberOfMonthsToFetch);
@@ -32,8 +38,6 @@ export class AddCommentsForFirstTimeRedditUserHandler implements ICommandHandler
                 if (redditCommentOwner.redditId === '') {
                     redditCommentOwner.redditId = comments[0].data.author_fullname;
                     redditCommentOwner.lastCommentFetchedID = comments[0].kind + '_' + comments[0].data.id;
-                    redditCommentOwner.comments = [];
-                    redditCommentOwner.relatedTopics = [];
                 }
 
                 for (const comment of comments) {
