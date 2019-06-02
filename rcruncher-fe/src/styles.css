@@ -1,0 +1,306 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: #2EB7CC;
+    --secondary: #67CB7D;
+    --danger: #FF4076;
+    --bg-primary: #26a69a;
+    --bg-primary-hover: #2bbbad;
+    --bg-info: #2EB7CC;
+    --bg-danger: #E57373;
+    --white: #fff;
+    --light-gray: #f5f5f5;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    --container-max-width: 100%;
+    --header-height: 80px;
+}
+/* html setup */
+
+html {
+    font-family: 'Open-Sans';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--light-gray);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+render-container {
+    width: 100%;
+}
+
+/* typography */
+
+a {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: inherit;
+}
+
+a:hover, a:focus {
+    color: var(--secondary);
+}
+
+h1, h2, h3, h4 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+.text-success, .text-primary {
+    color: var(--primary);
+}
+
+.text-info {
+    color: var(--secondary);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-center {
+    text-align: center;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* lists */
+
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: circle;
+}
+
+/* buttons */
+
+button, .btn, input[type="button"], input[type="submit"] {
+    cursor: pointer;
+    display: inline-block;
+    height: 36px;
+    vertical-align: middle;
+    padding: 0px 16px;
+    margin-bottom: 0;
+    line-height: 36px;
+    font-size: 15px;
+    letter-spacing: .5px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: none;
+    border-radius: 2px;
+    transition: box-shadow .25s, background-color .25s;
+    outline: none;
+}
+
+button.success, .btn.success, input[type="button"].success, input[type="submit"].success {
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+button.danger, .btn.danger, input[type="button"].danger, input[type="submit"].danger {
+    background-color: var(--bg-danger);
+    color: var(--white);
+}
+
+button.info, .btn.info, input[type="button"].info, input[type="submit"].info {
+    background-color: var(--bg-info);
+    color: var(--white);
+}
+
+.btn:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.btn:focus, button:focus, input[type="button"]:focus, input[type="submit"]:focus, .btn:visited, button:visited, input[type="button"]:visited, input[type="submit"]:visited {
+    outline: none;
+}
+
+/* containers */
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container.column {
+    flex-direction: column !important;
+}
+
+.flex-container.children-nowidth>* {
+    align-self: flex-start;
+}
+
+.flex-container.center {
+    justify-content: center !important;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    padding: 24px;
+    margin: 50px auto 1rem auto;
+    border-radius: 2px;
+}
+
+.card.small {
+    width: 40%;
+}
+
+
+.card>.card-title:first-child {
+    color: white;
+    width: auto;
+    font-size: 24px;
+    padding: 15px 20px;
+    background-color: var(--primary);
+    align-self: flex-start;
+    box-shadow: var(--box-shadow);
+    margin-top: -55px;  
+    margin-bottom: 10px;
+}
+
+.card>.card-title:first-child.center {
+    align-self: center;
+}
+
+.card>.card-title:first-child.left {
+    align-self: flex-start;
+}
+
+.card>.card-title:first-child.right {
+    align-self: flex-end;
+}
+
+.card>.card-title:first-child.danger {
+    background-color: var(--bg-danger);
+}
+
+.card>.card-title:first-child.info {
+    background-color: var(--secondary);
+}
+
+.pages-container {
+    display: flex;
+    justify-content: center;
+}
+
+.card>.card-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.card>.card-content.column {
+    flex-direction: column;
+}
+
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px 0;
+    max-width: var(--container-max-width);
+}
+
+@media (max-width: 767px) {
+    .card {
+        max-width: 90%;
+        width: 90%;
+        align-self: center;
+    }   
+
+    .card.small {
+        width: 90%;
+    }
+    .card>.card-title:first-child {
+        align-self: center !important;
+    }
+}
+
+@media (min-width: 576px) {
+    :root {
+        --container-max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    :root {
+        --container-max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    :root {
+        --container-max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    :root {
+        --container-max-width: 1140px;
+    }
+}
+
+/* inputs */
+
+input[type="text"], input[type="password"], input[type="number"] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: auto;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus {
+    border-color: var(--primary);
+    outline: none;
+}

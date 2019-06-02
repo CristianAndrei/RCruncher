@@ -1,0 +1,31 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    margin-top: 5rem;
+    width: 50%;
+}
+
+.submit-login-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 992px) {
+    .submit-login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .submit-login-container .extra-options a, .submit-login-container .btn {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .card {
+        width: 80%;
+    }
+}
