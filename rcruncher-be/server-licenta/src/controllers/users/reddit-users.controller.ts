@@ -35,8 +35,6 @@ export class RedditUsersController {
             new RenderTopicsForRedditUserCommand(redditUserModel))
         ).subscribe((newTopicsData) => { console.log('topic data:' + newTopicsData); });
     }
-    @Post('createClustering')
-    async createUserClusteringClustering() { }
     @Get('network')
     async kNetwoerk() {
         const network = new KohonenNetwork();
