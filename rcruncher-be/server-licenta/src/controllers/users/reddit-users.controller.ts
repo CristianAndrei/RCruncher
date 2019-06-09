@@ -22,6 +22,9 @@ export class RedditUsersController {
             from(this.commandBus.execute(
                 new AddCommentsForFirstTimeRedditUserCommand(redditUserModel),
             ));
+            from(this.commandBus.execute(
+                new AddSubredditsForRedditUserCommand(redditUserModel)),
+            );
         });
     }
     @Post('createTopics')
@@ -34,14 +37,6 @@ export class RedditUsersController {
     }
     @Post('createClustering')
     async createUserClusteringClustering() { }
-    @Post('subreddits')
-    async createSubreddits(@Body('redditUserName') redditUserName: string) {
-        const redditUserModel = new RedditUserModel();
-        redditUserModel.name = redditUserName;
-        from(this.commandBus.execute(
-            new AddSubredditsForRedditUserCommand(redditUserModel))
-            ).subscribe( () => {console.log("okay")});
-    }
     @Get('network')
     async kNetwoerk() {
         const network = new KohonenNetwork();

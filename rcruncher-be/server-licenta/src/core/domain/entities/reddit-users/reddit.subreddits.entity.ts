@@ -8,9 +8,6 @@ export class UserSubredditEntity extends BaseEntity {
     id: string;
 
     @Column()
-    name: string;
-
-    @Column()
     numberOfAppearances: number;
 
     @Column()

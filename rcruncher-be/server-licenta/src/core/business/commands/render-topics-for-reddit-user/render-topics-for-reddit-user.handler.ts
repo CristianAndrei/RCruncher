@@ -13,7 +13,7 @@ export class RenderTopicsForRedditUserHandler implements ICommandHandler<RenderT
         const redditCommentOwner = await RedditUserEntity.findOne(
             {
                 where: { name: redditUser.name },
-                relations : ['comments'], 
+                relations : ['comments'],
             });
         const notRenderedComments = await RedditCommentEntity.find({ where: { procesed: false, owner: redditCommentOwner } });
 
