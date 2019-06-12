@@ -9,6 +9,7 @@ import { KohonenNetwork } from 'src/core/services/machine-learning-services/koho
 
 @Controller('reddit-users')
 export class RedditUsersController {
+    private kohonenNetwork = new KohonenNetwork();
     constructor(private readonly commandBus: CommandBus) { }
 
     @Post()
@@ -36,8 +37,13 @@ export class RedditUsersController {
         ).subscribe((newTopicsData) => { console.log('topic data:' + newTopicsData); });
     }
     @Get('network')
-    async kNetwoerk() {
-        const network = new KohonenNetwork();
-        network.buildFullTrainingSet();
+    async kNetwork() {
+        this.kohonenNetwork.trainNetwork();
+    }
+    @Get('network1')
+    async kNetwork1() {
+        //const fields = 
+        this.kohonenNetwork.seeNetwork();
+        
     }
 }
