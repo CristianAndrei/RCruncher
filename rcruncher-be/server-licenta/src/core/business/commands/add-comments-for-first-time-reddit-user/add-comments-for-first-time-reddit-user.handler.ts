@@ -51,7 +51,9 @@ export class AddCommentsForFirstTimeRedditUserHandler implements ICommandHandler
 
                         if (redditCommentOwner.redditId === '') {
                             redditCommentOwner.redditId = comments[0].data.author_fullname;
-                            redditCommentOwner.lastCommentFetchedID = comments[0].kind + '_' + comments[0].data.id;
+                        }
+                        if (redditCommentOwner.lastCommentFetchedID === '') {
+                            redditCommentOwner.lastCommentFetchedID = comments[0].data.name;
                         }
                         for (const comment of comments) {
                             const newComment = RedditCommentEntity.createNewComment(
@@ -71,7 +73,7 @@ export class AddCommentsForFirstTimeRedditUserHandler implements ICommandHandler
                         resolve([0, 0]);
                     }
                 },
-                (err) => { console.log('error in addCommentForFirstTimeUser handler') }
+                (err) => { console.log('error in addCommentForFirstTimeUser handler'); },
             );
         });
 

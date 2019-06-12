@@ -42,6 +42,13 @@ export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSub
 
                 const subreddits = subredditData.data.children;
                 if (typeof subreddits !== 'undefined' && subreddits.length > 0) {
+                    if (redditPostOwner.redditId === '') {
+                        redditPostOwner.redditId = subreddits[0].data.author_fullname;
+                    }
+                    if (redditPostOwner.lastSubmitFetchedID === '') {
+                        redditPostOwner.lastSubmitFetchedID = subreddits[0].data.name;
+                    }
+
                     for (const subreddit of subreddits) {
                         const subredditEntity = await UserSubredditEntity.
                             findOne({
