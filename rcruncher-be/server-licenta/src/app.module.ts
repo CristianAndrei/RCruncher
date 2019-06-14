@@ -8,14 +8,18 @@ import {
   AddCommentsForFirstTimeRedditUserHandler,
   RenderTopicsForRedditUserHandler,
   AddSubredditsForRedditUserHandler,
+  RefreshCommentsForUserHandler,
 } from './core/business/commands/command.exporter';
 import {CqrsModule } from '@nestjs/cqrs';
+import { RefreshSubredditsForUserHandler } from './core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.handler';
 
 export const CommandHandlers = [
   NewRedditUserHandler,
   AddCommentsForFirstTimeRedditUserHandler,
   RenderTopicsForRedditUserHandler,
   AddSubredditsForRedditUserHandler,
+  RefreshCommentsForUserHandler,
+  RefreshSubredditsForUserHandler,
 ];
 
 @Module({

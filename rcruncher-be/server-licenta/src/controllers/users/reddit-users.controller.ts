@@ -6,6 +6,9 @@ import { RedditUserModel } from 'src/core/business/models/reddit-user.model';
 import { CommandBus } from '@nestjs/cqrs';
 import { from } from 'rxjs';
 import { KohonenNetwork } from 'src/core/services/machine-learning-services/kohonen-network';
+import { RefreshCommentsForUser } from 'src/core/business/commands/refresh-comments-for-user/refresh-comments-for-user.command';
+import { sleeper } from 'src/core/services/services.exporter';
+import { RefreshSubredditsForUser } from 'src/core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.command';
 
 @Controller('reddit-users')
 export class RedditUsersController {
@@ -19,13 +22,16 @@ export class RedditUsersController {
         redditUserModel.name = redditUserName;
         from(this.commandBus.execute(
             new NewRedditUserCommand(redditUserModel),
-        )).subscribe((newRedditUserData) => {
+        )).subscribe(async () => {
             from(this.commandBus.execute(
                 new AddCommentsForFirstTimeRedditUserCommand(redditUserModel),
-            ));
-            from(this.commandBus.execute(
-                new AddSubredditsForRedditUserCommand(redditUserModel)),
-            );
+            )).subscribe(() => {
+                sleeper().then(() => {
+                    from(this.commandBus.execute(
+                        new AddSubredditsForRedditUserCommand(redditUserModel)),
+                    );
+                });
+            });
         });
     }
     @Post('createTopics')
@@ -44,6 +50,24 @@ export class RedditUsersController {
     async kNetwork1() {
         //const fields = 
         this.kohonenNetwork.seeNetwork();
-        
+
+    }
+    @Post('refresh-comments')
+    async refreshComments(@Body('redditUserName') redditUserName: string) {
+        const redditUserModel = new RedditUserModel();
+        redditUserModel.name = redditUserName;
+        from(this.commandBus.execute(
+            new RefreshCommentsForUser(redditUserModel),
+        ),
+    );
+    }
+    @Post('refresh-submitted')
+    async refreshSubmitted(@Body('redditUserName') redditUserName: string) {
+        const redditUserModel = new RedditUserModel();
+        redditUserModel.name = redditUserName;
+        from(this.commandBus.execute(
+            new RefreshSubredditsForUser(redditUserModel),
+        ),
+    );
     }
 }

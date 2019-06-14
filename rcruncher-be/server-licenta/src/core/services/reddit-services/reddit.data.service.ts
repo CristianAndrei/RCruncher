@@ -18,4 +18,8 @@ export class RedditDataService {
     return from(get(this.redditRequestConfig.redditSubmittedUrl(redditUserName))
       .query(this.redditRequestConfig.buildDefaultQueryParams()));
   }
+  updateRedditUserSubmitted(redditUserName: string, before: string): Observable<any> {
+    return from(get(this.redditRequestConfig.redditSubmittedUrl(redditUserName))
+      .query(this.redditRequestConfig.buildQueryParamsBefore(before)));
+  }
 }

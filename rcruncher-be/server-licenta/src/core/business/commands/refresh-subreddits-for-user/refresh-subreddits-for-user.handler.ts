@@ -1,41 +1,45 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AddSubredditsForRedditUserCommand } from './add-subbreddits-for-users.command';
-import { RedditDataService, sleeper } from 'src/core/services/services.exporter';
-import { RedditUserEntity } from 'src/core/domain/entities/entities.exporter';
+import { RefreshSubredditsForUser } from './refresh-subreddits-for-user.command';
+import { RedditDataService, sleeper, TextEnchancerService } from 'src/core/services/services.exporter';
+import { RedditUserEntity, RedditCommentEntity } from 'src/core/domain/entities/entities.exporter';
 import { UserSubredditEntity } from 'src/core/domain/entities/reddit-users/reddit.subreddits.entity';
 
-@CommandHandler(AddSubredditsForRedditUserCommand)
-export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSubredditsForRedditUserCommand> {
-    constructor(private readonly redditDataService: RedditDataService) { }
-    private numberOfMonthsToFetch: number = 6;
+@CommandHandler(RefreshSubredditsForUser)
+export class RefreshSubredditsForUserHandler implements ICommandHandler<RefreshSubredditsForUser> {
+    constructor(
+        private readonly redditDataService: RedditDataService,
+    ) { }
 
-    async execute(command: AddSubredditsForRedditUserCommand) {
+    async execute(command: RefreshSubredditsForUser) {
         const { redditUser } = command;
 
-        const redditPostOwner = await RedditUserEntity.
-            findOne(
-                {
-                    where: { name: redditUser.name },
-                    relations: ['createdSubreddits'],
-                },
-            );
+        const redditPostOwner = await RedditUserEntity.findOne(
+            {
+                where: { name: redditUser.name },
+                relations: ['createdSubreddits'],
+            },
+        );
 
-        let commentDate;
-        let afterId;
-        const boundaryDate = new Date();
-        boundaryDate.setMonth(boundaryDate.getMonth() - this.numberOfMonthsToFetch);
-        const unixDate: number = parseInt((boundaryDate.getTime() / 1000).toFixed(0), 10);
+        let stillPostsLeft: boolean = true;
+        let beforeId: string = redditPostOwner.lastSubmitFetchedID;
+        let actualId: string;
         do {
-            await sleeper().then(() => this.getOneBatchOfTopics(
-                redditPostOwner, afterId).then((data) => { commentDate = data[0]; afterId = data[1]; }));
-        } while (commentDate > unixDate);
+            await sleeper().then(() => this.getOneBatchOfComments
+                (redditPostOwner, beforeId).then((data) => {
+                    stillPostsLeft = data[0]; beforeId = data[1];
+                    if (beforeId !== '') {
+                        actualId = beforeId;
+                    }
+                }));
+        } while (stillPostsLeft);
+        redditPostOwner.lastSubmitFetchedID = actualId;
+        redditPostOwner.save();
     }
-    getOneBatchOfTopics(redditPostOwner: any, after: any): Promise<any> {
-
+    getOneBatchOfComments(redditPostOwner: RedditUserEntity, beforeId: string): Promise<any> {
         return new Promise((resolve) => {
             this.redditDataService.getRedditUserSubmitted(redditPostOwner.name).subscribe(async (data) => {
                 const subredditData = data.body;
-
+                let stillPostsLeft: boolean = true;
                 if (!('data' in subredditData)) {
                     resolve([0, 0]);
                 }
@@ -58,6 +62,10 @@ export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSub
                                     owner: redditPostOwner,
                                 },
                             });
+                        if (subreddit.data.name === beforeId) {
+                            stillPostsLeft = false;
+                            resolve([false, '']);
+                        }
                         if (subredditEntity !== undefined) {
                             subredditEntity.numberOfAppearances++;
                             subredditEntity.save();
@@ -71,9 +79,9 @@ export class AddSubredditsForRedditUserHandler implements ICommandHandler<AddSub
                         }
                     }
                     await redditPostOwner.save();
-                    resolve([subreddits[subreddits.length - 1].data.created_utc, subredditData.after]);
+                    resolve([stillPostsLeft, subreddits[0].data.name]);
                 } else {
-                    resolve([0, 0]);
+                    resolve([false, '']);
                 }
             });
         });

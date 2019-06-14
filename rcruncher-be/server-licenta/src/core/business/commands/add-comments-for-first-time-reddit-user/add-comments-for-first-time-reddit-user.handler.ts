@@ -68,6 +68,7 @@ export class AddCommentsForFirstTimeRedditUserHandler implements ICommandHandler
                             redditCommentOwner.comments.push(newComment);
                         }
                         const answer = [comments[comments.length - 1].data.created_utc, dataJson.after];
+                        await redditCommentOwner.save();
                         resolve(answer);
                     } else {
                         resolve([0, 0]);
