@@ -55,8 +55,10 @@ export class KohonenNetwork {
                 }
             }
             for (const currentUser of redditUsers) {
-                this.buildUserTrainingSet(currentUser, allSubbreddits).subscribe((userData) => {
+                this.buildUserTrainingSet(currentUser, allSubbreddits).subscribe(async (userData) => {
                     this.trainingSet.push(userData);
+                    currentUser.partOfTrainingSet = true;
+                    await currentUser.save();
                 });
             }
             resolve();
@@ -86,6 +88,26 @@ export class KohonenNetwork {
         return from(newPromise);
     }
 
+    public predictTrainedUsers(): Observable<any> {
+        const newPromise = new Promise(async (resolve) => {
+            const redditUsers = await RedditUserEntity.find({ where: { partOfTrainingSet: true }, relations: ['createdSubreddits'] });
+            for (const redditUser of redditUsers) {
+                this.predictUser(redditUser.name).subscribe((resultedData) => {
+                    if (resultedData.length === 3 && resultedData[2].length === 2 ) {
+                        redditUser.xPosition = resultedData[0];
+                        redditUser.yPosition = resultedData[1];
+                        redditUser.xDiference = resultedData[2][0];
+                        redditUser.yDiference = resultedData[2][1];
+                        redditUser.save();
+                    }
+                });
+            }
+            resolve();
+        });
+        return from(newPromise);
+    }
+
+
     public saveNetwork() { }
     public loadNetwork() { }
     public predictUser(userName: string): Observable<any> {
@@ -93,8 +115,7 @@ export class KohonenNetwork {
             const allSubbreddits = await UserSubredditEntity.find();
             const redditUser = await RedditUserEntity.findOne({ where: { name: userName }, relations: ['createdSubreddits'] });
             this.buildUserTrainingSet(redditUser, allSubbreddits).subscribe((predictionSet) => {
-                console.log(predictionSet);
-                resolve(this.internalNetwork.predict(predictionSet));
+                resolve(this.internalNetwork.predict(predictionSet, true));
             });
         });
         return from(newPromise);

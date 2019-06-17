@@ -9,26 +9,41 @@ export class RedditUserEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({length : 100})
+    @Column({ length: 100 })
     name: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     redditOauthToken: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     redditId: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     lastCommentFetchedID: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     lastUpvoteFetchedID: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     lastDownvoteFetchedID: string;
 
-    @Column({default : ''})
+    @Column({ default: '' })
     lastSubmitFetchedID: string;
+
+    @Column({ default: false })
+    partOfTrainingSet: boolean;
+
+    @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
+    xPosition: number;
+
+    @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
+    yPosition: number;
+
+    @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
+    xDiference: number;
+
+    @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
+    yDiference: number;
 
     @OneToMany(type => RedditCommentEntity, redditCommentEntity => redditCommentEntity.owner)
     comments: RedditCommentEntity[];

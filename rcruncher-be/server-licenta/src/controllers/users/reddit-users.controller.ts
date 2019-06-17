@@ -77,6 +77,7 @@ export class RedditUsersController {
     }
     @Get('predict')
     async predictUser(@Query('user') user) {
-        this.kohonenNetwork.predictUser(user).subscribe((data) => { console.log(data) });
+        //this.kohonenNetwork.predictUser(user).subscribe((data) => { console.log(data) });
+        this.kohonenNetwork.predictTrainedUsers().subscribe(() => console.log("done"));
     }
 }
