@@ -12,6 +12,7 @@ import {
 } from './core/business/commands/command.exporter';
 import {CqrsModule } from '@nestjs/cqrs';
 import { RefreshSubredditsForUserHandler } from './core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.handler';
+import { GetTopicsForUserHandler, GetTrainedUsersHandler, GetUserHandler } from './core/business/queries/query.exporter';
 
 export const CommandHandlers = [
   NewRedditUserHandler,
@@ -22,11 +23,18 @@ export const CommandHandlers = [
   RefreshSubredditsForUserHandler,
 ];
 
+export const QuerryHandlers = [
+  GetTopicsForUserHandler,
+  GetTrainedUsersHandler,
+  GetUserHandler,
+];
+
 @Module({
   imports: [TypeOrmModule.forRoot(), CqrsModule],
   controllers: [RedditUsersController],
   providers: [
     ...CommandHandlers,
+    ...QuerryHandlers,
     RedditDataService,
     TextEnchancerService,
   ],

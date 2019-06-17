@@ -4,6 +4,7 @@ import SOM = require('ml-som');
 import { UserSubredditEntity } from 'src/core/domain/entities/reddit-users/reddit.subreddits.entity';
 import { getRepository } from 'typeorm';
 import { KohonenOptions } from './kohonen.options';
+import { resolve } from 'dns';
 const czekanowskiDistance = require('ml-distance').distance.czekanowski;
 const fs = require('fs');
 export class KohonenNetwork {
@@ -115,10 +116,14 @@ export class KohonenNetwork {
             if (err) { console.log(err); }
         });
     }
-    public loadNetwork() {
-        fs.readFile(this.filePath, (err, buf) => {
-            this.internalNetwork = SOM.load(JSON.parse(buf), czekanowskiDistance);
+    public loadNetwork(): Observable<any> {
+        const newPromise = new Promise((resolve) => {
+            fs.readFile(this.filePath, (err, buf) => {
+                this.internalNetwork = SOM.load(JSON.parse(buf), czekanowskiDistance);
+            });
+            resolve();
         });
+        return from(newPromise);
     }
     public predictUser(userName: string): Observable<any> {
         const newPromise = new Promise(async (resolve) => {

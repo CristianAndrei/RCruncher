@@ -4,6 +4,7 @@ import { GetTrainedUsersQuery } from './get-trained-users.query';
 @QueryHandler(GetTrainedUsersQuery)
 export class GetTrainedUsersHandler implements IQueryHandler<GetTrainedUsersQuery> {
     async execute(query: GetTrainedUsersQuery) {
-        return RedditUserEntity.find({ where: { partOfTrainingSet: true } });
+        const trainingSet = await RedditUserEntity.find({ where: { partOfTrainingSet: true } });
+        return trainingSet;
     }
 }
