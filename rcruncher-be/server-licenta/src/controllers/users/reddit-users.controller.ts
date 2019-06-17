@@ -13,7 +13,7 @@ import { RefreshSubredditsForUser } from 'src/core/business/commands/refresh-sub
 @Controller('reddit-users')
 export class RedditUsersController {
     private kohonenNetwork = new KohonenNetwork();
-    constructor(private readonly commandBus: CommandBus) { }
+    constructor(private readonly commandBus: CommandBus) {this.kohonenNetwork.loadNetwork(); }
 
     @Post()
     async create(@Body('redditUserName') redditUserName: string) {
@@ -49,7 +49,7 @@ export class RedditUsersController {
     }
     @Get('network1')
     async kNetwork1() {
-        return this.kohonenNetwork.seeNetwork();
+        return this.kohonenNetwork.saveNetwork();
     }
 
     @Post('refreshTopics')

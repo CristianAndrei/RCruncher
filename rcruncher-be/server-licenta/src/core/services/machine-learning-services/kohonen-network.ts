@@ -4,13 +4,16 @@ import SOM = require('ml-som');
 import { UserSubredditEntity } from 'src/core/domain/entities/reddit-users/reddit.subreddits.entity';
 import { getRepository } from 'typeorm';
 import { KohonenOptions } from './kohonen.options';
+const czekanowskiDistance = require('ml-distance').distance.czekanowski;
+const fs = require('fs');
 export class KohonenNetwork {
+
+    private filePath = './tmp/savedKohonen.model.json';
     private trainingSet;
     private internalNetwork: any;
     private kOptions = new KohonenOptions();
     private baseFields = [];
-
-    constructor() {
+    create() {
         this.createOptions().subscribe((options) => {
             this.internalNetwork = new SOM(this.kOptions.xValue, this.kOptions.yValue, options);
         });
@@ -93,7 +96,7 @@ export class KohonenNetwork {
             const redditUsers = await RedditUserEntity.find({ where: { partOfTrainingSet: true }, relations: ['createdSubreddits'] });
             for (const redditUser of redditUsers) {
                 this.predictUser(redditUser.name).subscribe((resultedData) => {
-                    if (resultedData.length === 3 && resultedData[2].length === 2 ) {
+                    if (resultedData.length === 3 && resultedData[2].length === 2) {
                         redditUser.xPosition = resultedData[0];
                         redditUser.yPosition = resultedData[1];
                         redditUser.xDiference = resultedData[2][0];
@@ -106,10 +109,17 @@ export class KohonenNetwork {
         });
         return from(newPromise);
     }
-
-
-    public saveNetwork() { }
-    public loadNetwork() { }
+    public saveNetwork() {
+        fs.closeSync(fs.openSync(this.filePath, 'w'));
+        fs.writeFile(this.filePath, JSON.stringify(this.internalNetwork.export()), (err) => {
+            if (err) { console.log(err); }
+        });
+    }
+    public loadNetwork() {
+        fs.readFile(this.filePath, (err, buf) => {
+            this.internalNetwork = SOM.load(JSON.parse(buf), czekanowskiDistance);
+        });
+    }
     public predictUser(userName: string): Observable<any> {
         const newPromise = new Promise(async (resolve) => {
             const allSubbreddits = await UserSubredditEntity.find();

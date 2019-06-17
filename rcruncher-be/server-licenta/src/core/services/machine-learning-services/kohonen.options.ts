@@ -1,4 +1,3 @@
-const distance = require('ml-distance').distance.czekanowski;
 /*function computeDistanceForArray(firstArray, secondArray) {
     if (firstArray.length !== secondArray.length) {
         return 0;
@@ -20,6 +19,7 @@ function computeDistanceForJSON(firstJson, secondJson) {
     const secondArray = Object.values(secondJson);
     return computeDistanceForArray(firstArray, secondArray);
 }*/
+const czekanowskiDistance = require('ml-distance').distance.czekanowski;
 export class KohonenOptions {
     public fields;
     public iterations = 100;
@@ -34,7 +34,7 @@ export class KohonenOptions {
         options['fields'] = this.fields;
         options['iterations'] = this.iterations;
         options['learningRate'] = this.learningRate;
-        options['distance'] = distance;
+        options['distance'] = czekanowskiDistance;
         return options;
     }
 }
