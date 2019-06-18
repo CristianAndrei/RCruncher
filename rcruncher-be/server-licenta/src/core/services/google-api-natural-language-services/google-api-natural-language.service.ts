@@ -7,7 +7,7 @@ Injectable()
 export class NaturalLanguageService {
     private baseUrl = 'https://language.googleapis.com/v1/documents:';
     private aE = 'analyzeEntities';
-    private aES = 'analyzeEntitySentiment';
+    private aES = 'analyzeEntitySentiment'; // SEE FOR LATER USAGE
     private aS = 'analyzeSentiment';
     private aSx = 'analyzeSyntax';
     private aT = 'annotateText'; // MIGHT BE USED LATER
@@ -26,7 +26,7 @@ export class NaturalLanguageService {
                 .send(dataSent),
         );
     }
-    public analyzeEntitySentiment(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
+    /*public analyzeEntitySentiment(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {
                 content: textToAnalyze,
@@ -38,7 +38,7 @@ export class NaturalLanguageService {
                 .query('key=' + NaturalLanguageGoogleApiSettings.apiKey)
                 .send(dataSent),
         );
-    }
+    }*/
     public analyzeSentiment(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {

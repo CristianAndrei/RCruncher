@@ -1,0 +1,4 @@
+export * from './reddit-post.entity';
+export * from './google-natural-language-sentence.entity';
+export * from './google-natural-language-entity.entity';
+export * from './google-natural-language-category.entity';
