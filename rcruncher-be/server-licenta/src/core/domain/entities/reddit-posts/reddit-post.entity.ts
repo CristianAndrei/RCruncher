@@ -5,20 +5,22 @@ import {
     GoogleNaturalLanguageCategory,
 } from './reddit-posts.exporter';
 
-
 @Entity()
 @Index(['url'], { unique: true })
 export class RedditPostEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({default: ''})
     url: string;
 
     @Column({ default: '' })
     title: string;
 
-    @Column({ default: '' })
+    @Column({default: ''})
+    language: string;
+
+    @Column({ type: 'text'})
     body: string;
 
     @Column({ default: false })

@@ -13,16 +13,17 @@ export class NaturalLanguageService {
     private aT = 'annotateText'; // MIGHT BE USED LATER
     private cT = 'classifyText';
 
-    public analyzeEntities(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
+    public analyzeEntities(textToAnalyze: string, textType: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {
                 content: textToAnalyze,
-                type,
+                type: textType,
             },
         };
+        console.log(this.baseUrl + this.aE);
         return from(
             post(this.baseUrl + this.aE)
-                .query('key=' + NaturalLanguageGoogleApiSettings.apiKey)
+                .query({ key: NaturalLanguageGoogleApiSettings.apiKey })
                 .send(dataSent),
         );
     }
@@ -39,43 +40,43 @@ export class NaturalLanguageService {
                 .send(dataSent),
         );
     }*/
-    public analyzeSentiment(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
+    public analyzeSentiment(textToAnalyze: string, textType: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {
                 content: textToAnalyze,
-                type,
+                type: textType,
             },
         };
         return from(
             post(this.baseUrl + this.aS)
-                .query('key=' + NaturalLanguageGoogleApiSettings.apiKey)
+                .query({ key: NaturalLanguageGoogleApiSettings.apiKey })
                 .send(dataSent),
         );
     }
 
-    public analyzeSyntax(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
+    public analyzeSyntax(textToAnalyze: string, textType: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {
                 content: textToAnalyze,
-                type,
+                type: textType,
             },
         };
         return from(
             post(this.baseUrl + this.aSx)
-                .query('key=' + NaturalLanguageGoogleApiSettings.apiKey)
+                .query({ key: NaturalLanguageGoogleApiSettings.apiKey })
                 .send(dataSent),
         );
     }
-    public classifyText(textToAnalyze: string, type: string = 'PLAIN_TEXT'): Observable<any> {
+    public classifyText(textToAnalyze: string, textType: string = 'PLAIN_TEXT'): Observable<any> {
         const dataSent = {
             document: {
                 content: textToAnalyze,
-                type,
+                type: textType,
             },
         };
         return from(
             post(this.baseUrl + this.cT)
-                .query('key=' + NaturalLanguageGoogleApiSettings.apiKey)
+                .query({ key: NaturalLanguageGoogleApiSettings.apiKey })
                 .send(dataSent),
         );
     }

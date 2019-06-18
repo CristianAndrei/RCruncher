@@ -15,7 +15,7 @@ export class GoogleNaturalLanguageEntity extends BaseEntity {
     @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
     salience: number;
 
-    @Column({ default: ' ' })
+    @Column({ default: '' })
     metadataWikipediaUrl: string;
 
     @ManyToOne(type => RedditPostEntity, redditPostEntity => redditPostEntity.sentences)

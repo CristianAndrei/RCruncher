@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AddNewRedditCommand } from './add-new-reddit-post.command';
+import { AddNewRedditPostCommand } from './add-new-reddit-post.command';
 import { RedditPostEntity } from 'src/core/domain/entities/reddit-posts/reddit-post.entity';
 import { NaturalLanguageService } from 'src/core/services/google-api-natural-language-services/google-api-natural-language.service';
 import {
@@ -8,16 +8,27 @@ import {
     GoogleNaturalLanguageCategory,
 } from 'src/core/domain/entities/reddit-posts/reddit-posts.exporter';
 
-@CommandHandler(AddNewRedditCommand)
-export class AddNewPostHandler implements ICommandHandler<AddNewRedditCommand> {
+@CommandHandler(AddNewRedditPostCommand)
+export class AddNewPostHandler implements ICommandHandler<AddNewRedditPostCommand> {
     constructor(private readonly googleNaturalLanguageService: NaturalLanguageService) { }
 
-    async execute(command: AddNewRedditCommand) {
+    async execute(command: AddNewRedditPostCommand) {
         const newRedditPost = new RedditPostEntity();
         newRedditPost.url = command.redditUrl;
         newRedditPost.hasBeenProcessed = true;
+        newRedditPost.body = command.body;
+
+        if(command.body === undefined) {
+            newRedditPost.body = '';
+        }
+
+        newRedditPost.categories = [];
+        newRedditPost.entities = [];
+        newRedditPost.sentences = [];
+
         this.googleNaturalLanguageService.analyzeEntities(command.body)
-            .subscribe((data) => {
+            .subscribe((requestData) => {
+                const data = requestData.body;
                 if ('entities' in data) {
                     for (const entity of data.entities) {
                         const newEntity = GoogleNaturalLanguageEntity.createObject(entity);
@@ -26,9 +37,11 @@ export class AddNewPostHandler implements ICommandHandler<AddNewRedditCommand> {
                         newEntity.save();
                     }
                 }
-            });
+            }, (err) => { console.log(err); }
+            );
         this.googleNaturalLanguageService.analyzeSentiment(command.body)
-            .subscribe((data) => {
+            .subscribe((requestData) => {
+                const data = requestData.body;
                 if ('documentSentiment' in data) {
                     if ('magnitude' in data.documentSentiment) {
                         newRedditPost.sentimentMagnitude = data.documentSentiment.magnitude;
@@ -48,9 +61,11 @@ export class AddNewPostHandler implements ICommandHandler<AddNewRedditCommand> {
                         newSentence.save();
                     }
                 }
-            });
+            }, (err) => { console.log(err); }
+            );
         this.googleNaturalLanguageService.classifyText(command.body)
-            .subscribe((data) => {
+            .subscribe((requestData) => {
+                const data = requestData.body;
                 if ('categories' in data) {
                     for (const category of data.categories) {
                         const newCategory = GoogleNaturalLanguageCategory.createObject(category);
@@ -59,7 +74,7 @@ export class AddNewPostHandler implements ICommandHandler<AddNewRedditCommand> {
                         newCategory.save();
                     }
                 }
-            });
+            },(err) => { console.log(err); });
         newRedditPost.save();
     }
 }

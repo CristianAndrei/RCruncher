@@ -1,10 +1,13 @@
 {
-    "type": "mysql",
-    "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "root",
-    "database": "RCruncher",
-    "entities": ["src/core/domain/entities/reddit-users/*.entity.ts"],
-    "synchronize": true
-  }
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "root",
+  "database": "RCruncher",
+  "entities": [
+    "src/core/domain/entities/reddit-posts/*.entity.ts",
+    "src/core/domain/entities/reddit-users/*.entity.ts"
+  ],
+  "synchronize": true
+}

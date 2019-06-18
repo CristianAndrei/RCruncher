@@ -9,7 +9,7 @@ export class RedditCommentEntity extends BaseEntity {
     redditId: string;
 
     @Column({type : 'text' })
-    body: string;
+    body: string ;
 
     @Column({ default: '' })
     subreddit: string;

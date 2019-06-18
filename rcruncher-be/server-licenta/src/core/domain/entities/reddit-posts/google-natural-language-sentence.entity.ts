@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne,  } from 'typeorm';
 import { RedditPostEntity } from './reddit-post.entity';
 
 @Entity()
@@ -6,7 +6,7 @@ export class GoogleNaturalLanguageSentence extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: '' })
+    @Column({type: 'text'})
     textContent: string;
 
     @Column({ type: 'float', precision: 10, scale: 6, default: 0 })
