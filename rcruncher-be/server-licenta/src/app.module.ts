@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { RedditUsersController } from './controllers/users/reddit-users.controller';
-import { RedditDataService, TextEnchancerService, NaturalLanguageService } from './core/services/services.exporter';
+import { RedditDataService, TextEnchancerService, NaturalLanguageService, CrawlerService, PageContentRequester } from './core/services/services.exporter';
 import { CqrsModule } from '@nestjs/cqrs';
 import { RefreshSubredditsForUserHandler } from './core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.handler';
 import {
@@ -47,6 +47,8 @@ export const QuerryHandlers = [
     RedditDataService,
     TextEnchancerService,
     NaturalLanguageService,
+    CrawlerService,
+    PageContentRequester,
   ],
 })
 export class AppModule {

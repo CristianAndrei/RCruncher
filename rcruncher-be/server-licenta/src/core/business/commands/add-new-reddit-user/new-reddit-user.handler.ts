@@ -4,16 +4,20 @@ import { RedditUserEntity } from 'src/core/domain/entities/reddit-users/reddit.u
 
 @CommandHandler(NewRedditUserCommand)
 export class NewRedditUserHandler implements ICommandHandler<NewRedditUserCommand> {
-  constructor() {}
+  constructor() { }
 
   async execute(command: NewRedditUserCommand) {
-    const { redditUser } = command;
-    const newRedditUser = new RedditUserEntity();
-    newRedditUser.name = redditUser.name;
-    newRedditUser.redditId = redditUser.redditId;
-    newRedditUser.comments = [];
-    newRedditUser.relatedTopics = [];
-    newRedditUser.createdSubreddits = [];
-    await newRedditUser.save();
+    try {
+      const { redditUser } = command;
+      const newRedditUser = new RedditUserEntity();
+      newRedditUser.name = redditUser.name;
+      newRedditUser.redditId = redditUser.redditId;
+      newRedditUser.comments = [];
+      newRedditUser.relatedTopics = [];
+      newRedditUser.createdSubreddits = [];
+      await newRedditUser.save();
+    } catch (e) {
+      console.log("error saving user in database");
+    }
   }
 }

@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/typeorm": "^6.1.1",
     "google-auth-library": "^4.2.1",
+    "js-crawler": "^0.3.21",
     "keyword-extractor": "0.0.16",
     "ml": "^3.5.0",
     "ml-distance": "^2.1.1",

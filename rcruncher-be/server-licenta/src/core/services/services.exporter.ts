@@ -3,3 +3,4 @@ export * from './text-interpreter-services/text-interpreter-services.exporter';
 export * from './sleeper/sleeper.util';
 export * from './machine-learning-services/kohonen.exporter';
 export * from './google-api-natural-language-services/google-api-natural-language.exporter';
+export * from './crawler-service/crawler.exporter';
