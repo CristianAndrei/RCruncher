@@ -9,6 +9,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { UserDataPageComponent } from './pages/user-data-page/user-data-page.component';
 import { FormsModule } from '@angular/forms';
+import { NetworkPageComponent } from './pages/network-page/network-page.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    UserDataPageComponent
+    UserDataPageComponent,
+    NetworkPageComponent
   ],
   imports: [
     BrowserModule,

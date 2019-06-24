@@ -1,0 +1,38 @@
+<div class="page-container">
+  
+  <div class="data-container">
+    <div class="user-container">
+        <div>
+            <label for="user"></label>
+            <input type="text" name="" id="" value="" [(ngModel)]="userName"><br>
+          </div>
+    
+    
+          <div class="user-button-container">
+            <button class="btn success" (click)="seeUserPrediction()"> Predict user </button>
+          </div>
+    </div>
+
+
+    <div class="charts-container">  
+        <div class="chart-button-container">
+            <button class="btn success" (click)="chart()"> Draw network </button>
+          </div>
+    
+          <div class="kohonen-chart-container">
+            <canvas class="kohonen-chart" id="bubble-chart"></canvas>
+          </div>
+    
+          <div>
+            <canvas class="charts" id="word-cloud-chart"></canvas>
+          </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

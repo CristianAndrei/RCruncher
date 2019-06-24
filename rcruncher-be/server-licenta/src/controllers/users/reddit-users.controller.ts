@@ -61,7 +61,7 @@ export class RedditUsersController {
         const redditUserModel = new RedditUserModel();
         redditUserModel.name = redditUserName;
     }
-    @Post('refresh-comments')
+    @Post('refreshComments')
     async refreshComments(@Body('redditUserName') redditUserName: string) {
         const redditUserModel = new RedditUserModel();
         redditUserModel.name = redditUserName;
@@ -70,7 +70,7 @@ export class RedditUsersController {
         ),
         );
     }
-    @Post('refresh-submitted')
+    @Post('refreshSubmitted')
     async refreshSubmitted(@Body('redditUserName') redditUserName: string) {
         const redditUserModel = new RedditUserModel();
         redditUserModel.name = redditUserName;
@@ -101,4 +101,14 @@ export class RedditUsersController {
             new GetTrainedUsersQuery(),
         );
     }
+    @Post('alabala')
+    async dummy() {
+        this.kohonenNetwork.predictTrainedUsers().subscribe((data) => { console.log(data) });
+    }
+    /*@Get('data')
+    async getApplicatio nData() {
+        return this.queryBus.execute(
+            new GetApplicationData()
+        )
+    }*/ 
 }

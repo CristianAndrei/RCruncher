@@ -23,7 +23,6 @@ export class RedditPostsController {
 
     @Get('post')
     async getPostWithData(@Param() params) {
-        console.log("here");
         return this.queryBus.execute(
             new GetRedditPostWithAssociatedDataQuery(params.url),
         );

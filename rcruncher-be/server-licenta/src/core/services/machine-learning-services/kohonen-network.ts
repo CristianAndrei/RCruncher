@@ -4,8 +4,7 @@ import SOM = require('ml-som');
 import { UserSubredditEntity } from 'src/core/domain/entities/reddit-users/reddit.subreddits.entity';
 import { getRepository } from 'typeorm';
 import { KohonenOptions } from './kohonen.options';
-import { resolve } from 'dns';
-const czekanowskiDistance = require('ml-distance').distance.czekanowski;
+const distance = require('ml-distance').distance.czekanowski;
 const fs = require('fs');
 export class KohonenNetwork {
 
@@ -14,10 +13,15 @@ export class KohonenNetwork {
     private internalNetwork: any;
     private kOptions = new KohonenOptions();
     private baseFields = [];
-    create() {
-        this.createOptions().subscribe((options) => {
-            this.internalNetwork = new SOM(this.kOptions.xValue, this.kOptions.yValue, options);
+    create(): Observable<any> {
+        const newPromise = new Promise((resolve) => {
+
+            this.createOptions().subscribe((options) => {
+                this.internalNetwork = new SOM(this.kOptions.xValue, this.kOptions.yValue, options);
+            });
+            resolve();
         });
+        return from(newPromise);
     }
     public createOptions(): Observable<any> {
         const newPromise = new Promise(async (resolve) => {
@@ -119,7 +123,7 @@ export class KohonenNetwork {
     public loadNetwork(): Observable<any> {
         const newPromise = new Promise((resolve) => {
             fs.readFile(this.filePath, (err, buf) => {
-                this.internalNetwork = SOM.load(JSON.parse(buf), czekanowskiDistance);
+                this.internalNetwork = SOM.load(JSON.parse(buf), distance);
             });
             resolve();
         });
