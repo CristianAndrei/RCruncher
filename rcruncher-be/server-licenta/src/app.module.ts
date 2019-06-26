@@ -10,6 +10,7 @@ import {
   GetTrainedUsersHandler,
   GetUserHandler,
   GetRedditPostWithAssociatedDataHandler,
+  GetUserRecommendedHandler,
 } from './core/business/queries/query.exporter';
 import { RedditPostsController } from './controllers/reddit-posts/reddit-posts.controller';
 import {
@@ -36,6 +37,7 @@ export const QuerryHandlers = [
   GetTrainedUsersHandler,
   GetUserHandler,
   GetRedditPostWithAssociatedDataHandler,
+  GetUserRecommendedHandler,
 ];
 
 @Module({

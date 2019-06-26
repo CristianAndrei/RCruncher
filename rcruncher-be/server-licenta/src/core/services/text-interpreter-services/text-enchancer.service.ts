@@ -28,7 +28,6 @@ export class TextEnchancerService {
 
     async extractKeyWords(textBody: string): Promise<[]> {
         const extractionResult = await keywordExtractor.extract(textBody, this.extensionSetup);
-        console.log(extractionResult);
         return extractionResult;
     }
 }

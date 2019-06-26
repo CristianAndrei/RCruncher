@@ -13,7 +13,7 @@ export class RenderTopicsForRedditUserHandler implements ICommandHandler<RenderT
         const redditCommentOwner = await RedditUserEntity.findOne(
             {
                 where: { name: redditUser.name },
-                relations : ['comments'],
+                relations: ['comments', 'relatedTopics'],
             });
         const notRenderedComments = await RedditCommentEntity.find({ where: { procesed: false, owner: redditCommentOwner } });
 
@@ -23,10 +23,17 @@ export class RenderTopicsForRedditUserHandler implements ICommandHandler<RenderT
             const commentTopics: any = await this.textEnchancerService.extractKeyWords(comment.body);
 
             for (const topic of commentTopics) {
-                const newRedditTopicEntity: RedditTopicEntity = RedditTopicEntity.createNewTopic(topic, comment.subreddit);
-                newRedditTopicEntity.owner = redditCommentOwner;
-                redditCommentOwner.relatedTopics.push(newRedditTopicEntity);
-                await newRedditTopicEntity.save();
+                const topicA = await RedditTopicEntity.findOne({ where: { owner: redditCommentOwner, topicName: topic } })
+
+                if (topicA === undefined) {
+                    const newRedditTopicEntity: RedditTopicEntity = RedditTopicEntity.createNewTopic(topic);
+                    newRedditTopicEntity.owner = redditCommentOwner;
+                    redditCommentOwner.relatedTopics.push(newRedditTopicEntity);
+                    await newRedditTopicEntity.save();
+                } else {
+                    topicA.numberOfApp++;
+                    topicA.save();
+                }
             }
             comment.procesed = true;
             await comment.save();

@@ -26,15 +26,60 @@
     align-items: center;
 }
 
-.kohonen-chart-container{
+.chart-container{
     width: 600px;
-    height: 600px;
+    height: 300px;
 }
 .kohonen-chart{
     width: 600px;
-    height: 600px;
+    height: 300px;
 }
 
+.input-container {
+    margin-left: 25px;
+}
+.input-button-class{
+    display: flex;
+    flex-direction: row;
+}
 
+.kohonen-input{
+    margin-left: 50px;
+}
+.user-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+}
 
+.default-btn{
+    transform: translate(-40px,15px);
+}
+.default-input {
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    border: 2px rgba(153, 255, 187, 0.8);
+}
 
+.user-identification{
+
+}
+
+.recommended-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    padding: 10px;
+}
+.recommended-items{
+    width: 200px;
+    height: 300px;
+    margin: 20px;
+    overflow: auto;
+}
+
+.recommended-title{
+    margin-bottom: 15px;
+    font-weight: bold;
+}

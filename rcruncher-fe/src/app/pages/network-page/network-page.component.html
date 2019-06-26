@@ -1,38 +1,77 @@
 <div class="page-container">
-  
+
+
+
   <div class="data-container">
+
     <div class="user-container">
-        <div>
-            <label for="user"></label>
-            <input type="text" name="" id="" value="" [(ngModel)]="userName"><br>
+
+      <ng-template [ngIf]="currentUserName">
+        <div class="user-identification">
+          You are currently viewing data for {{currentUserName}}
+        </div>
+      </ng-template>
+
+
+      <div class="input-button-class">
+        <div class="input-container">
+          <label for="user-prediction"></label>
+          <input class="default-input" type="text" name="" id="" value="" [(ngModel)]="userName"><br>
+        </div>
+
+        <button class="btn success default-btn" (click)="seeUserPrediction()"> Predict user </button>
+      </div>
+
+      <div class="input-button-class">
+        <div class="input-container">
+          <label for="user-data"></label>
+          <input class="default-input" type="text" name="" id="" value="" [(ngModel)]="userName"><br>
+        </div>
+
+        <button class="btn success default-btn" (click)="getUserData()"> Get user data </button>
+      </div>
+
+      <div class="recommended-container">
+        <div class="recom">
+          <div class="recommended-title">
+            Recommended subreddits
           </div>
-    
-    
-          <div class="user-button-container">
-            <button class="btn success" (click)="seeUserPrediction()"> Predict user </button>
+          <div class="recommended-items">
+
+            <div *ngFor="let item of recommendedSubreddits; let i = index">
+              {{item}}
+            </div>
           </div>
+        </div>
+
+        <div class="recom">
+          <div class="recommended-title">
+            Related users
+          </div>
+          <div class="recommended-items">
+            <div *ngFor="let item of relatedUsers; let i = index">
+              {{item}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 
-    <div class="charts-container">  
-        <div class="chart-button-container">
-            <button class="btn success" (click)="chart()"> Draw network </button>
-          </div>
-    
-          <div class="kohonen-chart-container">
-            <canvas class="kohonen-chart" id="bubble-chart"></canvas>
-          </div>
-    
-          <div>
-            <canvas class="charts" id="word-cloud-chart"></canvas>
-          </div>
+    <div class="charts-container">
+      <div class="chart-button-container">
+        <button class="btn success" (click)="chart()"> Draw network </button>
+      </div>
+
+      <div class="chart-container">
+        <canvas class="kohonen-chart" id="bubble-chart"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <canvas class="charts" id="word-cloud-chart"></canvas>
+      </div>
 
     </div>
   </div>
 
 </div>
-
-
-
-
-

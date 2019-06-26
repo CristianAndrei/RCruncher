@@ -22,38 +22,44 @@ export class DataService {
     public getUserTopics(userName: string): Observable<any> {
         return from(get(this.path + this.userData + 'user/' + userName + '/topics'));
     }
-    public createUser(userName: string) {
+    public createUser(userName: string): Observable<any> {
         const dataLoad = {
             redditUserName: userName,
         };
-        post(this.path + this.userData).send(dataLoad);
+        return from(post(this.path + this.userData).send(dataLoad));
     }
-    public refreshCommentsForUser(userName: string) {
+    public refreshCommentsForUser(userName: string): Observable<any> {
         const dataLoad = {
             redditUserName: userName,
         };
-        post(this.path + this.userData + '/refreshComments').send(dataLoad);
+        return from(post(this.path + this.userData + '/refreshComments').send(dataLoad));
     }
-    public refreshTopicsForUser(userName: string) {
+    public refreshTopicsForUser(userName: string): Observable<any> {
+        console.log(userName);
+        return from(post(this.path + this.userData + 'refreshTopics')
+            .send({
+                redditUserName: userName,
+            }));
+    }
+    public refreshSubmittedForUser(userName: string): Observable<any> {
         const dataLoad = {
             redditUserName: userName,
         };
-        post(this.path + this.userData + '/refreshTopics').send(dataLoad);
+        return from(post(this.path + this.userData + '/refreshSubmitted').
+            send(dataLoad));
     }
-    public refreshSubmittedForUser(userName: string) {
-        const dataLoad = {
-            redditUserName: userName,
-        };
-        post(this.path + this.userData + '/refreshSubmitted').send(dataLoad);
-    }
-    public analyzePost(url: string) {
+    public analyzePost(url: string): Observable<any> {
         const dataLoad = {
             postURL: url
         };
-        post(this.path + this.postData + 'url').send(dataLoad);
+        return from(post(this.path + this.postData + 'url').send(dataLoad));
     }
     public getPostData(postURL: string): Observable<any> {
         return from(get(this.path + this.postData + 'post').
             query({ url: postURL }));
+    }
+
+    public getRecommendedData(userName: string): Observable<any> {
+        return from(get(this.path + this.userData + 'user/' + userName + '/recommended'));
     }
 }

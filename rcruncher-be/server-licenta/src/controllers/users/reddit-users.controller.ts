@@ -9,7 +9,7 @@ import { KohonenNetwork } from 'src/core/services/machine-learning-services/koho
 import { RefreshCommentsForUser } from 'src/core/business/commands/refresh-comments-for-user/refresh-comments-for-user.command';
 import { sleeper } from 'src/core/services/services.exporter';
 import { RefreshSubredditsForUser } from 'src/core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.command';
-import { GetUserQuery, GetTopicsForUserQuery, GetTrainedUsersQuery } from 'src/core/business/queries/query.exporter';
+import { GetUserQuery, GetTopicsForUserQuery, GetTrainedUsersQuery, GetUserRecommendedQuery } from 'src/core/business/queries/query.exporter';
 
 @Controller('reddit-users')
 export class RedditUsersController {
@@ -25,7 +25,6 @@ export class RedditUsersController {
 
     @Post()
     async create(@Body('redditUserName') redditUserName: string) {
-
         const redditUserModel = new RedditUserModel();
         redditUserModel.name = redditUserName;
         try {
@@ -60,6 +59,7 @@ export class RedditUsersController {
     async createTopics(@Body('redditUserName') redditUserName: string) {
         const redditUserModel = new RedditUserModel();
         redditUserModel.name = redditUserName;
+        from(this.commandBus.execute(new RenderTopicsForRedditUserCommand(redditUserModel)));
     }
     @Post('refreshComments')
     async refreshComments(@Body('redditUserName') redditUserName: string) {
@@ -82,6 +82,12 @@ export class RedditUsersController {
     @Get('user/:user/predict')
     async predictUser(@Param() params) {
         return this.kohonenNetwork.predictUser(params.user);
+    }
+    @Get('user/:user/recommended')
+    async getRecommended(@Param() params) {
+       return this.queryBus.execute(
+           new GetUserRecommendedQuery(params.user),
+       );
     }
     @Get('user/:user')
     async getUserData(@Param() params) {
@@ -110,5 +116,5 @@ export class RedditUsersController {
         return this.queryBus.execute(
             new GetApplicationData()
         )
-    }*/ 
+    }*/
 }

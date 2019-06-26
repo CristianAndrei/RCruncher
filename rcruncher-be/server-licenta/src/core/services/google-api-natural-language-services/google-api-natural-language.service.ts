@@ -20,7 +20,6 @@ export class NaturalLanguageService {
                 type: textType,
             },
         };
-        console.log(this.baseUrl + this.aE);
         return from(
             post(this.baseUrl + this.aE)
                 .query({ key: NaturalLanguageGoogleApiSettings.apiKey })
