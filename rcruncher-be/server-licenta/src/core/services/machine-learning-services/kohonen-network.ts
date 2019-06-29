@@ -4,8 +4,10 @@ import SOM = require('ml-som');
 import { UserSubredditEntity } from 'src/core/domain/entities/reddit-users/reddit.subreddits.entity';
 import { getRepository } from 'typeorm';
 import { KohonenOptions } from './kohonen.options';
+
 const distance = require('ml-distance').distance.czekanowski;
 const fs = require('fs');
+
 export class KohonenNetwork {
 
     private filePath = './tmp/savedKohonen.model.json';

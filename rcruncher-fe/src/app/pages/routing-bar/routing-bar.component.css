@@ -1,0 +1,11 @@
+.routing-bar{
+    height: 40px;
+    background-color : rgb(103, 203, 125);
+    display: flex;
+    flex-direction: row;
+}
+.bar-button{
+    background-color:  rgb(103, 203, 125);
+    color:white;
+    height: 40px;
+}

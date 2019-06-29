@@ -1,0 +1,44 @@
+.card{
+    display: inline-block;
+    position: fixed;
+    margin-top: 300px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 600px;
+    height: 300px;
+    justify-content: center;
+    justify-items: center;
+}
+.item{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.default-btn{
+    transform: translate(-40px,15px);
+}
+.default-input {
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    border: 2px rgba(153, 255, 187, 0.8);
+}
+.input-button-class{
+    display: flex;
+    flex-direction: row;
+    
+}
+.input-container {
+    margin-left: 25px;
+}
+.home-page-container{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.add-new-data-container{
+    margin-top: 100px;
+    margin-left: 600px;
+}

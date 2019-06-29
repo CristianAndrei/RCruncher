@@ -92,6 +92,7 @@ export class NetworkPageComponent implements OnInit {
   }
   public getUserData() {
     this.currentUserName = this.userName;
+    this.polarAreaChart = null;
     this.dataService.refreshTopicsForUser(this.userName).subscribe((data) => {
       this.dataService.getUserTopics(this.userName).subscribe((topicsData) => {
 

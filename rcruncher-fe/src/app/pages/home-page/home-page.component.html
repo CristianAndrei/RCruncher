@@ -1,7 +1,42 @@
-<p>
-  home-page works!
-</p>
+<app-routing-bar> </app-routing-bar>
 
+<div class="home-page-container">
+    <div class="card">
+        <div class="card-title">
+            Application data
+        </div>
 
-<a href="https://www.reddit.com/api/v1/authorize?client_id=sPeEIuil64PJJA&response_type=code&state=abcdgsga&redirect_uri=http://localhost:4200/home&duration=permanent&scope=identity+read">Get reddit code</a>
-<button (click) = "getUserBasicData()" > data</button>
+        <ng-template [ngIf]="appData">
+            <div class="item">
+                {{appData.numberOfUsers}} users have been analyzed so far.
+            </div>
+            <div class="item">
+                {{appData.numberOfComms}} comments have been collected and analyzed.
+            </div>
+            <div class="item">
+                The application gathered {{appData.numberOfSubmitted}} reddit submitted posts.
+            </div>
+            <div class="item">
+                {{appData.numberOfPosts}} posts were analyzed with the help of the Google Natural Language Api
+            </div>
+        </ng-template>
+    </div>
+    <div class="add-new-data-container">
+        <div class="input-button-class">
+            <div class="input-container">
+                <label for="user-prediction"></label>
+                <input class="default-input" type="text" name="" id="" value="" [(ngModel)]="newUser"><br>
+            </div>
+
+            <button class="btn success default-btn" (click)="addUser()"> Add User</button>
+        </div>
+
+        <div class="input-button-class">
+            <div class="input-container">
+                <label for="user-data"></label>
+                <input class="default-input" type="text" name="" id="" value="" [(ngModel)]="newPost"><br>
+            </div>
+            <button class="btn success default-btn" (click)="addPost()">Add Post </button>
+        </div>
+    </div>
+</div>

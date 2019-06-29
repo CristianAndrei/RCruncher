@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne,  } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import { RedditPostEntity } from './reddit-post.entity';
 
 @Entity()

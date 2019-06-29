@@ -26,6 +26,7 @@
     "@nestjs/cqrs": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/typeorm": "^6.1.1",
+    "emoji-strip": "^1.0.1",
     "google-auth-library": "^4.2.1",
     "js-crawler": "^0.3.21",
     "keyword-extractor": "0.0.16",

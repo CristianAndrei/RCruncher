@@ -9,7 +9,7 @@ import { KohonenNetwork } from 'src/core/services/machine-learning-services/koho
 import { RefreshCommentsForUser } from 'src/core/business/commands/refresh-comments-for-user/refresh-comments-for-user.command';
 import { sleeper } from 'src/core/services/services.exporter';
 import { RefreshSubredditsForUser } from 'src/core/business/commands/refresh-subreddits-for-user/refresh-subreddits-for-user.command';
-import { GetUserQuery, GetTopicsForUserQuery, GetTrainedUsersQuery, GetUserRecommendedQuery } from 'src/core/business/queries/query.exporter';
+import { GetUserQuery, GetTopicsForUserQuery, GetTrainedUsersQuery, GetUserRecommendedQuery, GetApplicationDataQuery } from 'src/core/business/queries/query.exporter';
 
 @Controller('reddit-users')
 export class RedditUsersController {
@@ -111,10 +111,10 @@ export class RedditUsersController {
     async dummy() {
         this.kohonenNetwork.predictTrainedUsers().subscribe((data) => { console.log(data) });
     }
-    /*@Get('data')
-    async getApplicatio nData() {
+    @Get('applicationData')
+    async getApplicationData() {
         return this.queryBus.execute(
-            new GetApplicationData()
-        )
-    }*/
+            new GetApplicationDataQuery(),
+        );
+    }
 }

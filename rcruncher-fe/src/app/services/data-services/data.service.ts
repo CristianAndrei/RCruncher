@@ -62,4 +62,8 @@ export class DataService {
     public getRecommendedData(userName: string): Observable<any> {
         return from(get(this.path + this.userData + 'user/' + userName + '/recommended'));
     }
+
+    public getApplicationData(): Observable<any> {
+        return from(get(this.path + this.userData + 'applicationData'));
+    }
 }

@@ -1,0 +1,83 @@
+<app-routing-bar> </app-routing-bar>
+
+<div class="post-page-container">
+  <div class="input-button-class">
+    <div class="input-container">
+      <label for="user-data"></label>
+      <input class="default-input" type="text" name="" id="" value="" [(ngModel)]="url"><br>
+    </div>
+    <button class="btn success default-btn" (click)="vizualizePost()">See post </button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      Post analysis
+    </div>
+
+
+    <ng-template [ngIf]="postData">
+      <div class="sentiments">
+        <div class="sentiment-class">
+          Score:{{postData.sentimentScore}}
+        </div>
+        <div class="sentiment-class">
+          Magnitude:{{postData.sentimentMagnitude}}
+        </div>
+      </div>
+
+
+
+
+      <div class="reddit-post-card-title secondary">
+        <p> Post body <p>
+      </div>
+      <div class="post-text-container">
+        <div class="reddit-post-card secondary-card">
+
+          <div class="post-text">
+            {{postData.body}}
+          </div>
+        </div>
+        <div class="category-container">
+          <div class="post-sentences" *ngFor="let item of postData.categories; let i = index">
+              <div class="sentence-body">
+                  {{item.name}}
+              </div>
+              <div class="sentiment-class">
+                  {{item.confidence}}
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="reddit-post-card-title secondary">
+        <p> Post sentences <p>
+      </div>
+      <div class="reddit-post-card">
+
+        <div class="post-sentences" *ngFor="let item of postData.sentences; let i = index">
+          <div class="sentence-body">
+            {{item.textContent}}
+          </div>
+          <div class="sentiments">
+            <div class="sentiment-class">
+              Score:{{item.sentimentScore}}
+            </div>
+            <div class="sentiment-class">
+              Magnitude:{{item.sentimentMagnitude}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="follow-url" (click)="followUrl()"> See original post here </div>
+    </ng-template>
+
+
+
+  </div>
+
+</div>

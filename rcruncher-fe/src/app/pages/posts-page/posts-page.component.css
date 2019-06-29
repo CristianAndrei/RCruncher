@@ -1,0 +1,97 @@
+.input-button-class{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.input-container {
+    margin-left: 25px;
+}
+.post-page-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+}
+.default-btn{
+    transform: translate(-40px,15px);
+    
+}
+.default-input {
+    height: 50px;
+    width: 600px;
+    border-radius: 25px;
+    border: 2px rgba(153, 255, 187, 0.8);
+}
+.card{
+    height: 600px;
+    width: 1200px;
+}
+.follow-url{
+    justify-content: center;
+    margin-left: 500px;
+    margin-top: 30px;
+}
+.reddit-post-card{
+    overflow: auto;
+    width: 1100px;
+    height: 220px;
+    margin-left: 50px;
+    margin-top: 5px;
+}
+.secondary-card{
+    width: 800px;
+    height: 160px;
+}
+.reddit-post-card-title{
+    width: 120px;
+    height: 40px;
+    background-color: rgb(103, 203, 125);
+    margin-top: 60px;
+     text-align: center;
+    text-transform: uppercase;
+    margin-left: 550px;
+    color: white;
+    border-radius: 25px;
+}
+
+.post-sentences{
+    display: flex;
+    flex-direction: row;
+}
+.sentiment-class{
+    background-color: rgb(46,183,204);
+    border-radius: 25px;
+    height: 25px;
+    width: 120px;
+    text-align: center;
+    justify-content: flex-end;
+    justify-self: flex-start;
+    color: white;
+    margin-left: 10px;
+}
+.sentiments{
+    align-self: flex-end;
+    justify-self: flex-end;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+}
+.sentence-body{
+    width: 900px;
+}
+.post-text-container{
+    height: 220px;
+    display: flex;
+    flex-direction: row;
+}
+
+.category-container{
+    height: 160px;;
+    width: 300px;
+    margin-top: 5px;
+    margin-left: 30px;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    border-radius: 2px;
+}
