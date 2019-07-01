@@ -1,181 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-    --primary: #2EB7CC;
-    --secondary: #67CB7D;
-    --danger: #FF4076;
-    --bg-primary: #26a69a;
-    --bg-primary-hover: #2bbbad;
-    --bg-info: #2EB7CC;
-    --bg-danger: #E57373;
-    --white: #fff;
-    --light-gray: #f5f5f5;
-    --gray: #6c757d;
-    --gray-dark: #343a40;
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
-    --breakpoint-xl: 1200px;
-    --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-    --container-max-width: 100%;
-    --header-height: 80px;
-}
-/* html setup */
-
-html {
-    font-family: 'Open-Sans';
-}
-
 body {
     margin: 0;
-    padding: 0;
-    background: var(--light-gray);
 }
-
-* {
-    box-sizing: border-box;
-}
-
-
-/* typography */
-
-/* buttons */
-
-button, .btn, input[type="button"], input[type="submit"] {
-    cursor: pointer;
-    display: inline-block;
+.default-btn{
+    background-color: #67CB7D;
+    color: white;
+    padding: 0px 20px;
     height: 36px;
-    vertical-align: middle;
-    padding: 0px 16px;
-    margin-bottom: 0;
     line-height: 36px;
     font-size: 15px;
-    letter-spacing: .5px;
-    font-weight: normal;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    white-space: nowrap;
+    border-radius: 2px;
     border: none;
     border-radius: 2px;
-    transition: box-shadow .25s, background-color .25s;
     outline: none;
+    text-transform: uppercase;
 }
-
-button.success, .btn.success, input[type="button"].success, input[type="submit"].success {
-    background-color: var(--secondary);
-    color: var(--white);
+.translated{
+    transform: translate(-40px,15px);
 }
-.btn:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
-    box-shadow: var(--box-shadow);
+.default-btn:hover{
+   box-shadow: -7px 18px 40px -4px rgba(6,23,50,0.5);
 }
-
-.btn:focus, button:focus, input[type="button"]:focus, input[type="submit"]:focus, .btn:visited, button:visited, input[type="button"]:visited, input[type="submit"]:visited {
-    outline: none;
-}
-
-/* containers */
-.card {
+.default-squared-container {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    box-shadow: var(--box-shadow);
     padding: 24px;
-    margin: 50px auto 1rem auto;
-    border-radius: 2px;
+    margin: 52px auto 1.5rem auto;
+    border-radius: 2.5px;
+    background-color: white;
+    box-shadow: -7px 18px 40px -4px rgba(6,23,50,0.5);
 }
 
-
-
-.card>.card-title:first-child {
+.default-squared-container-title{
     color: white;
     width: auto;
     font-size: 24px;
-    padding: 15px 20px;
-    background-color: var(--primary);
-    align-self: flex-start;
-    box-shadow: var(--box-shadow);
-    margin-top: -55px;  
-    margin-bottom: 10px;
+    background-color: #2EB7CC;
+    box-shadow: -7px 18px 40px -4px rgba(6,23,50,0.5);
+    transform: translate(-0px,-50px);
+    padding: 14px 21px;
 }
-
-.card>.card-title:first-child.center {
-    align-self: center;
-}
-
-.card>.card-title:first-child.left {
-    align-self: flex-start;
-}
-
-.card>.card-title:first-child.right {
-    align-self: flex-end;
-}
-
-.card>.card-title:first-child.danger {
-    background-color: var(--bg-danger);
-}
-
-.card>.card-title:first-child.info {
-    background-color: var(--secondary);
-}
-
-.card>.card-content {
-    display: flex;
-    flex-direction: row;
-}
-
-.card>.card-content.column {
-    flex-direction: column;
-}
-
-@media (max-width: 767px) {
-    .card {
-        max-width: 90%;
-        width: 90%;
-        align-self: center;
-    }   
-    .card>.card-title:first-child {
-        align-self: center !important;
-    }
-}
-
-@media (min-width: 576px) {
-    :root {
-        --container-max-width: 540px;
-    }
-}
-
-@media (min-width: 768px) {
-
-    :root {
-        --container-max-width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    :root {
-        --container-max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-
-    :root {
-        --container-max-width: 1140px;
-    }
-}
-
-/* inputs */
-
-input[type="text"], input[type="password"], input[type="number"] {
+input{
     padding: 12px 20px;
     margin: 8px 0;
-    border: 1px solid #ccc;
+    box-shadow: -7px 18px 40px -4px rgba(6,23,50,0.5);
+    border-radius: 25px;
     box-sizing: border-box;
-    width: auto;
-}
-
-input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus {
-    border-color: var(--primary);
-    outline: none;
 }

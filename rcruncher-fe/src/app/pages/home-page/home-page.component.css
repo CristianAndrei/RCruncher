@@ -1,4 +1,4 @@
-.card{
+.default-squared-container{
     display: inline-block;
     position: fixed;
     margin-top: 300px;
@@ -15,10 +15,6 @@
     margin-top: 20px;
     margin-bottom: 20px;
     font-weight: bold;
-}
-
-.default-btn{
-    transform: translate(-40px,15px);
 }
 .default-input {
     height: 50px;

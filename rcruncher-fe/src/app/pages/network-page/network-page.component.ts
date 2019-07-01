@@ -95,12 +95,12 @@ export class NetworkPageComponent implements OnInit {
     this.polarAreaChart = null;
     this.dataService.refreshTopicsForUser(this.userName).subscribe((data) => {
       this.dataService.getUserTopics(this.userName).subscribe((topicsData) => {
-
         const apps = [];
         const topics = [];
         const cColors = [];
         let index = 0;
         const parsedData = JSON.parse(topicsData.text);
+        console.log(parsedData);
         for (const topic of parsedData) {
           apps.push(topic.numberOfApp);
           topics.push(topic.topicName);
