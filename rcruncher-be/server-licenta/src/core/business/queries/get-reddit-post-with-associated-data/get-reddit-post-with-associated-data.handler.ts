@@ -9,7 +9,7 @@ export class GetRedditPostWithAssociatedDataHandler implements IQueryHandler<Get
             .findOne(
                 {
                     where: {
-                        name: query.redditPostName,
+                        url: query.redditPostName,
                     },
                     relations: ['sentences', 'entities', 'categories'],
                 });

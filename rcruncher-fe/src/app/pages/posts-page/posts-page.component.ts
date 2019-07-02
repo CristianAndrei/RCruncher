@@ -14,6 +14,7 @@ export class PostsPageComponent implements OnInit {
   ngOnInit() {
   }
   vizualizePost() {
+    console.log(this.url);
     this.dataService.getPostData(this.url).subscribe((data) => {
       const parsedData = JSON.parse(data.text);
       this.postData = parsedData;

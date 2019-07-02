@@ -55,8 +55,8 @@ export class DataService {
         return from(post(this.path + this.postData + 'url').send(dataLoad));
     }
     public getPostData(postURL: string): Observable<any> {
-        return from(get(this.path + this.postData + 'post').
-            query({ url: postURL }));
+        console.log(postURL);
+        return from(get(this.path + this.postData + 'post?url=' + postURL));
     }
 
     public getRecommendedData(userName: string): Observable<any> {

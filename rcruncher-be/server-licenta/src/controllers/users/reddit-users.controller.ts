@@ -15,7 +15,7 @@ import { GetUserQuery, GetTopicsForUserQuery, GetTrainedUsersQuery, GetUserRecom
 export class RedditUsersController {
     private kohonenNetwork = new KohonenNetwork();
     constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {
-        this.kohonenNetwork.loadNetwork().subscribe(() => {
+        this.kohonenNetwork.create().subscribe(() => {
             console.log('Trained');
             sleeper(10000).then(() => {
                 this.kohonenNetwork.trainNetwork();

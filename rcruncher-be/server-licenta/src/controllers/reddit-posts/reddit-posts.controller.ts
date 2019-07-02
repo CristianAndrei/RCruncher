@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Req, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { AddNewRedditPostCommand } from 'src/core/business/commands/command.exporter';
 import { GetRedditPostWithAssociatedDataQuery } from 'src/core/business/queries/query.exporter';
@@ -22,9 +22,9 @@ export class RedditPostsController {
     }
 
     @Get('post')
-    async getPostWithData(@Param() params) {
+    async getPostWithData(@Query() qr) {
         return this.queryBus.execute(
-            new GetRedditPostWithAssociatedDataQuery(params.url),
+            new GetRedditPostWithAssociatedDataQuery(qr.url),
         );
     }
 }
